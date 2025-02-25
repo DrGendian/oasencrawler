@@ -5,8 +5,9 @@ class Player
 		Player();
 		int getY();
 		int getX();
-		int changeHealth();
+		int changeHealth(int change, int health);
 		int addRelic();
+		int getHealth();
 	private:
 		int x;
 		int y;
