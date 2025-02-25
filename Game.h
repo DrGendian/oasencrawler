@@ -5,7 +5,7 @@ class Game
 	public:
 		Game();
 		void startGame();
-		char getInput();
+		char getInput(Player);
 
 	private:
 		char input;
