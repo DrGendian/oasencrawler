@@ -5,6 +5,8 @@ class Player
 		Player();
 		int getY();
 		int getX();
+		int getLastY();
+		int getLastX();
 		int changeHealth(int);
 		int addRelic();
 		int getHealth();
@@ -12,7 +14,9 @@ class Player
 		void changePosition(int, char);
 	private:
 		int x;
+		int lastX;
 		int y;
+		int lastY;
 		int health;
 		int relics;
 };

@@ -11,39 +11,14 @@ Board::Board(){
     }
 }
 
-char Board::changePlayerPosition(Player& player) {
+void Board::refreshPlayerPosition(Player& player) {
+    int lastX = player.getLastX();
+    int lastY = player.getLastY();
+    this->gameBoard[lastY][lastX] = '*';
+
     int x = player.getX();
     int y = player.getY();
-	char input;
-
-	gameBoard[y - 1][x - 1] = '*';
-
-	std::cout << "\nEnter Direction (W/A/S/D) ";
-	std::cin >> input;
-
-	switch (input) {
-	case 'w':
-		player.changePosition(-1, 'y');
-		break;
-	case 's':
-		player.changePosition(1, 'y');
-		break;
-	case 'a':
-		player.changePosition(1, 'x');
-		break;
-	case 'd':
-		player.changePosition(-1, 'x');
-		break;
-	default:
-		std::cout << "Wrong Input!";
-	}
-
-	x = player.getX();
-	y = player.getY();
-
-    gameBoard[y-1][x-1] = '@';
-
-	return input;
+    this->gameBoard[y][x] = '@';
 }
 
 void Board::printBoard() {
