@@ -1,2 +1,7 @@
-﻿  Player.cpp
-  OasenCrawler.vcxproj -> J:\Technikum\C++\OasenCrawler\x64\Debug\OasenCrawler.exe
+﻿  Board.cpp
+  Game.cpp
+  OasenCrawler.cpp
+  Player.cpp
+  Generating Code...
+  LINK : C:\Technikum\Programmieren\C++\OasenCrawler\x64\Debug\OasenCrawler.exe not found or not built by the last incremental link; performing full link
+  OasenCrawler.vcxproj -> C:\Technikum\Programmieren\C++\OasenCrawler\x64\Debug\OasenCrawler.exe
