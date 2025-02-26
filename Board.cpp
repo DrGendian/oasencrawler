@@ -1,4 +1,5 @@
 #include "Board.h"
+#include "Game.h"
 #include "Player.h"
 #include <iostream>
 Board::Board(){
@@ -10,11 +11,39 @@ Board::Board(){
     }
 }
 
-void Board::changePlayerPosition(Player& player) {
+char Board::changePlayerPosition(Player& player) {
     int x = player.getX();
     int y = player.getY();
+	char input;
 
-    this->gameBoard[y-1][x-1] = '@';
+	gameBoard[y - 1][x - 1] = '*';
+
+	std::cout << "\nEnter Direction (W/A/S/D) ";
+	std::cin >> input;
+
+	switch (input) {
+	case 'w':
+		player.changePosition(-1, 'y');
+		break;
+	case 's':
+		player.changePosition(1, 'y');
+		break;
+	case 'a':
+		player.changePosition(1, 'x');
+		break;
+	case 'd':
+		player.changePosition(-1, 'x');
+		break;
+	default:
+		std::cout << "Wrong Input!";
+	}
+
+	x = player.getX();
+	y = player.getY();
+
+    gameBoard[y-1][x-1] = '@';
+
+	return input;
 }
 
 void Board::printBoard() {

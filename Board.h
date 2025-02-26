@@ -6,7 +6,7 @@ class Board
 	public:
 		Board();
 		void printBoard();
-		void changePlayerPosition(Player& player);
+		char changePlayerPosition(Player& player);
 
 	private:
 		char gameBoard[5][5];
