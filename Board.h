@@ -1,12 +1,14 @@
 #pragma once
 #include <iostream>
+#include "Player.h"
 class Board
 {
 	public:
 		Board();
 		void printBoard();
+		void changePlayerPosition(Player& player);
 
 	private:
-		std::string gameBoard[5][5];
+		char gameBoard[5][5];
 };
 

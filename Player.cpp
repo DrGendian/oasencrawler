@@ -8,10 +8,10 @@ Player::Player() {
 	relics = 0;
 }
 
-int Player::changeHealth(int change, int health){
+int Player::changeHealth(int change){
 	this->health += change;
-	if (health > 0) {
-		return health;
+	if (this->health > 0) {
+		return this->health;
 	}
 	else {
 		return 0;
@@ -23,12 +23,26 @@ int Player::addRelic() {
 	return relics;
 }
 
-void Player::changePosition(int change, char coord) {
+void Player::changePosition(int change,char coord) {
 	if (coord == 'x') {
-		x += change;
+		this->x += change;
+
+		if (this->x > 5) {
+			this->x = 5;
+		}
+		else if (this->x < 0) {
+			this->x = 0;
+		}
 	}
 	else if (coord == 'y') {
-		y += change;
+		this->y += change;
+
+		if (this->y > 5){
+			this->y = 5;
+		}
+		else if (this->y < 0) {
+			this->y = 0;
+		}
 	}
 }
 
@@ -37,13 +51,13 @@ int Player::getHealth() {
 }
 
 int Player::getX() {
-	return x;
+	return this->x;
 }
 
 int Player::getY() {
-	return y;
+	return this->y;
 }
 
 void Player::printStats() {
-	std::cout << "Player stats: \nHealth: " << health << "\nCoordinates X|Y:" << "(" << x << "|" << y << ")";
+	std::cout << "\nPlayer stats: \nHealth: " << health << "\nCoordinates X|Y:" << "(" << this->x << "|" << this->y << ")";
 }

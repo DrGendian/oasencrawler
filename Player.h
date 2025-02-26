@@ -5,11 +5,11 @@ class Player
 		Player();
 		int getY();
 		int getX();
-		int changeHealth(int, int);
+		int changeHealth(int);
 		int addRelic();
 		int getHealth();
 		void printStats();
-		void changePosition(int,char);
+		void changePosition(int, char);
 	private:
 		int x;
 		int y;
