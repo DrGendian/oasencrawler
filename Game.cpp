@@ -10,6 +10,7 @@ Game::Game() {
 void Game::startGame() {
 	Player player = Player();
 	Board gameBoard = Board();
+	gameBoard.setRelics();
 	gameBoard.refreshPlayerPosition(player);
 	gameBoard.printBoard();
 	player.printStats();
@@ -20,6 +21,7 @@ void Game::startGame() {
 		input = getInput(player);
 		system("cls");
 		//Console cleared
+		gameBoard.checkForRelic(player);
 		gameBoard.refreshPlayerPosition(player);
 		gameBoard.printBoard();
 		player.printStats();

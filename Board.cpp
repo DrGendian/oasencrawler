@@ -11,6 +11,17 @@ Board::Board(){
     }
 }
 
+void Board::setRelics() {
+    int x;
+    int y;
+    srand(time(0));
+    for (int i = 0; i <= 5; i++) {
+        x = rand() % 5;
+        y = rand() % 5;
+        gameBoard[x][y] = '#';
+    }
+}
+
 void Board::refreshPlayerPosition(Player& player) {
     int lastX = player.getLastX();
     int lastY = player.getLastY();
@@ -28,4 +39,15 @@ void Board::printBoard() {
         }
         std::cout << std::endl;
     }
+}
+
+void Board::checkForRelic(Player& player) {
+    int x = player.getX();
+    int y = player.getY();
+    
+    if (gameBoard[y][x] == '#') {
+        std::cout << "You found a relic!\n";
+        player.addRelic();
+    }
+
 }
