@@ -4,27 +4,33 @@
 #include "Player.h"
 Game::Game() {
 	input = ' ';
-	relicAmount = 5;
 }
 
 void Game::startGame() {
 	Player player = Player();
 	Board gameBoard = Board();
+	//gameBoard.setRelics();
 	gameBoard.refreshPlayerPosition(player);
 	gameBoard.printBoard();
 	player.printStats();
 	std::cout << "Meow\n";
 	char input = 'c';
 	int health = 5;  
+	int relicAmount = gameBoard.getRelicAmount();
+	int relics = player.getRelics();
 	while (1) {
 		input = getInput(player);
 		system("cls");
 		//Console cleared
+		gameBoard.checkField(player);
 		gameBoard.refreshPlayerPosition(player);
 		gameBoard.printBoard();
 		player.printStats();
 		health = player.getHealth();
-		if (input == 'x' || health <= 0) {
+		relics = player.getRelics();
+		std::cout << "Relic Amount: " << relicAmount << std::endl;
+		if (input == 'x' || health <= 0 || relics == relicAmount) {
+
 			break;
 		}
 	}

@@ -69,6 +69,10 @@ int Player::getLastX() {
 	return lastX;
 }
 
+int Player::getRelics() {
+	return relics;
+}
+
 void Player::printStats() {
 	std::cout << "\nPlayer stats: \nHealth: " << health << "\nRelics: " << relics << "\nCoordinates X|Y:" << "(" << this->x << "|" << this->y << ")";
 }

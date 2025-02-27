@@ -7,8 +7,12 @@ class Board
 		Board();
 		void printBoard();
 		void refreshPlayerPosition(Player& player);
+		void checkField(Player& player);
+		void setRelics();
+		int getRelicAmount();
 
 	private:
 		char gameBoard[5][5];
+		int relicAmount;
 };
 

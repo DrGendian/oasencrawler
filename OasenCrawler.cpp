@@ -7,5 +7,4 @@ int main()
 {
 	Game game = Game();
 	game.startGame();
-
 }

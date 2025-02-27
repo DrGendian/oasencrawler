@@ -1,4 +1,4 @@
 ﻿  Board.cpp
-  Game.cpp
-  Code wird generiert...
-  OasenCrawler.vcxproj -> J:\Technikum\C++\OasenCrawler\x64\Debug\OasenCrawler.exe
+C:\Technikum\Programmieren\C++\OasenCrawler\OasenCrawler\Board.cpp(39,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Technikum\Programmieren\C++\OasenCrawler\OasenCrawler\Board.cpp(69,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  OasenCrawler.vcxproj -> C:\Technikum\Programmieren\C++\OasenCrawler\x64\Debug\OasenCrawler.exe
