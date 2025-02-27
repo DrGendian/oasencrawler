@@ -1,18 +1,20 @@
 #pragma once
 #include <iostream>
 #include "Player.h"
+#include "Field.h"
 class Board
 {
 	public:
 		Board();
+		Field field;
 		void printBoard();
 		void refreshPlayerPosition(Player& player);
 		void checkField(Player& player);
-		void setRelics();
 		int getRelicAmount();
+		void generateBoard();
 
 	private:
-		char gameBoard[5][5];
+		Field::strFieldType gameBoard[5][5];
 		int relicAmount;
 };
 

@@ -10,6 +10,7 @@ void Game::startGame() {
 	Player player = Player();
 	Board gameBoard = Board();
 	//gameBoard.setRelics();
+	gameBoard.generateBoard();
 	gameBoard.refreshPlayerPosition(player);
 	gameBoard.printBoard();
 	player.printStats();
@@ -29,9 +30,13 @@ void Game::startGame() {
 		health = player.getHealth();
 		relics = player.getRelics();
 		std::cout << "Relic Amount: " << relicAmount << std::endl;
-		if (input == 'x' || health <= 0 || relics == relicAmount) {
-
+		if (input == 'x' || health <= 0) {
 			break;
+		}
+		else if (relics == relicAmount) {
+			gameBoard.generateBoard();
+			relicAmount = gameBoard.getRelicAmount();
+			gameBoard.refreshPlayerPosition(player);
 		}
 	}
 }
