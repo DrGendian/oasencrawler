@@ -2,16 +2,20 @@
 #include "Game.h"
 #include "Board.h"
 #include "Player.h"
+#include "Enemy.h"
 Game::Game() {
 	input = ' ';
 }
 
 void Game::startGame() {
 	Player player = Player();
+	Enemy enemy = Enemy();
+	Enemy enemy2 = Enemy();
 	Board gameBoard = Board();
 	//gameBoard.setRelics();
-	gameBoard.generateBoard();
+	gameBoard.refreshEnemyPosition(enemy);
 	gameBoard.refreshPlayerPosition(player);
+	gameBoard.generateBoard();
 	gameBoard.printBoard();
 	player.printStats();
 	std::cout << "Meow\n";
@@ -21,8 +25,10 @@ void Game::startGame() {
 	int relics = player.getRelics();
 	while (1) {
 		input = getInput(player);
+		enemy.changePosition();
 		system("cls");
 		//Console cleared
+		gameBoard.refreshEnemyPosition(enemy);
 		gameBoard.checkField(player);
 		gameBoard.refreshPlayerPosition(player);
 		gameBoard.printBoard();

@@ -2,19 +2,20 @@
 #include <iostream>
 #include "Player.h"
 #include "Field.h"
+#include "Enemy.h"
 class Board
 {
 	public:
 		Board();
-		Field field;
 		void printBoard();
 		void refreshPlayerPosition(Player& player);
 		void checkField(Player& player);
 		int getRelicAmount();
 		void generateBoard();
+		void refreshEnemyPosition(Enemy& enemy);
 
 	private:
-		Field::strFieldType gameBoard[5][5];
+		Field gameBoard[5][5];
 		int relicAmount;
 };
 

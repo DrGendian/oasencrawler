@@ -9,9 +9,7 @@ class Field
 			TRAP,
 			RELIC
 		};
-		struct strFieldType {
-			char symbol;
-			fieldType type;
-		};
+		char symbol;
+		fieldType type;
 };
 

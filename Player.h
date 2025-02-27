@@ -13,6 +13,7 @@ class Player
 		int getRelics();
 		void printStats();
 		void changePosition(int, char);
+		void revertPosition();
 	private:
 		int x;
 		int lastX;

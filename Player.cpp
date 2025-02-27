@@ -50,6 +50,11 @@ void Player::changePosition(int change,char coord) {
 	}
 }
 
+void Player::revertPosition() {
+	x = lastX;
+	y = lastY;
+}
+
 int Player::getHealth() {
 	return health;
 }
