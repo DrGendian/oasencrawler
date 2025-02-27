@@ -10,6 +10,7 @@ class Player
 		int changeHealth(int);
 		int addRelic();
 		int getHealth();
+		int getRelics();
 		void printStats();
 		void changePosition(int, char);
 	private:

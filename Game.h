@@ -10,6 +10,5 @@ class Game
 
 	private:
 		char input;
-		int relicAmount;
 };
 
