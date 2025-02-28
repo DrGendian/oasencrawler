@@ -49,4 +49,26 @@ void Enemy::changePosition() {
 		}
 		break;
 	}
+
+	if (x > 4) {
+		x = 4;
+	}
+	else if (x < 0) {
+		x = 0;
+	}
+	if (y > 4) {
+		y = 4;
+	}
+	else if (y < 0) {
+		y = 0;
+	}
+}
+
+void Enemy::revertPosition() {
+		x = lastX;
+		y = lastY;
+}
+
+void Enemy::printEnemy() {
+	std::cout << "Enemy Position:" << "(" << x << "|" << y << ")\n";
 }

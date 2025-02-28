@@ -8,6 +8,8 @@ public:
 	int getLastY();
 	int getLastX();
 	void changePosition();
+	void printEnemy();
+	void revertPosition();
 	char symbol = 'V';
 private:
 	int x;

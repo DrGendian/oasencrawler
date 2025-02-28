@@ -25,13 +25,14 @@ void Board::generateBoard() {
             }
             else if (x >= 41 && x <= 80) {
                 gameBoard[i][j].type = Field::TRAP;
+                gameBoard[i][j].symbol = '!';
             }
             else if (x >= 81 && x <= 90) {
                 gameBoard[i][j].type = Field::WELL;
             }
             else if (x >= 91 && x <= 100) {
-                if (gameBoard[i][j].symbol != 'V') {
-                    //gameBoard[i][j].symbol = '#';
+                if (gameBoard[i][j].type != Field::ENEMY) {
+                    gameBoard[i][j].symbol = '#';
                     gameBoard[i][j].type = Field::RELIC;
                     relicAmount++;
                 }
@@ -54,10 +55,21 @@ void Board::refreshEnemyPosition(Enemy& enemy) {
     int lastX = enemy.getLastX();
     int lastY = enemy.getLastY();
     this->gameBoard[lastY][lastX].symbol = '*';
+    //FOR LATER USE IN HIGHER DIFFICULTY
+    //gameBoard[lastY][lastX].symbol = '!';
+    //gameBoard[lastY][lastX].type = Field::TRAP;
 
     int x = enemy.getX();
     int y = enemy.getY();
-    this->gameBoard[y][x].symbol = 'V';
+
+    if (gameBoard[y][x].symbol != Field::RELIC) {
+        this->gameBoard[y][x].symbol = 'V';
+        gameBoard[y][x].type = Field::ENEMY;
+    }
+    else {
+        enemy.revertPosition();
+    }
+    
 }
 
 void Board::printBoard() {
@@ -74,10 +86,10 @@ void Board::checkField(Player& player) {
     int y = player.getY();
     srand(static_cast<unsigned int>(time(NULL)));
     int monsterChance;
-    if (gameBoard[y][x].symbol == 'V') {
+    if (gameBoard[y][x].type == Field::ENEMY) {
         std::cout << "Enemy\n";
-        player.changeHealth(-1);
         player.revertPosition();
+        player.changeHealth(-1);
      }else if (gameBoard[y][x].type == Field::RELIC) {
         std::cout << "You found a relic!\n";
         player.addRelic();

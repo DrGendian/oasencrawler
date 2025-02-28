@@ -7,7 +7,8 @@ class Field
 			EMPTY,
 			WELL,
 			TRAP,
-			RELIC
+			RELIC,
+			ENEMY
 		};
 		char symbol;
 		fieldType type;

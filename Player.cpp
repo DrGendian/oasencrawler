@@ -60,11 +60,11 @@ int Player::getHealth() {
 }
 
 int Player::getX() {
-	return this->x;
+	return x;
 }
 
 int Player::getY() {
-	return this->y;
+	return y;
 }
 
 int Player::getLastY() {
@@ -79,5 +79,5 @@ int Player::getRelics() {
 }
 
 void Player::printStats() {
-	std::cout << "\nPlayer stats: \nHealth: " << health << "\nRelics: " << relics << "\nCoordinates X|Y:" << "(" << this->x << "|" << this->y << ")";
+	std::cout << "\nPlayer stats: \nHealth: " << health << "\nRelics: " << relics << "\nCoordinates X|Y:" << "(" << this->x << "|" << this->y << ")\n";
 }
