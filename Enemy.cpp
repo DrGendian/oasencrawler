@@ -1,4 +1,6 @@
 #include "Enemy.h"
+#include "Board.h"
+#include "Player.h"
 #include <ctime>
 #include <iostream>
 Enemy::Enemy() {
@@ -22,10 +24,10 @@ int Enemy::getLastY() {
 int Enemy::getLastX() {
 	return lastX;
 }
-void Enemy::changePosition() {
+void Enemy::changePosition(Player& player) {
 	lastX = x;
 	lastY = y;
-	srand(time(NULL));
+	/*srand(time(NULL));
 	int chance = rand() % 4;
 	switch(chance) {
 	case 0:
@@ -48,7 +50,23 @@ void Enemy::changePosition() {
 			y--;
 		}
 		break;
+	}*/
+	
+
+	
+	int playerX = player.getX();
+	int playerY = player.getY();
+
+	int differenceX = playerX - x;
+	int differenceY = playerY - y;
+
+	if (x != playerX) {
+		x += (playerX > x) ? 1 : -1;
 	}
+	else if (y != playerY) {
+		y += (playerY > y) ? 1 : -1;
+	}
+
 
 	if (x > 4) {
 		x = 4;
@@ -62,11 +80,12 @@ void Enemy::changePosition() {
 	else if (y < 0) {
 		y = 0;
 	}
+
 }
 
 void Enemy::revertPosition() {
-		x = lastX;
-		y = lastY;
+		x = 4;
+		y = 4;
 }
 
 void Enemy::printEnemy() {

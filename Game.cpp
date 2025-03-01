@@ -12,9 +12,9 @@ void Game::startGame() {
 	Enemy enemy = Enemy();
 	Board gameBoard = Board();
 	//gameBoard.setRelics();
-	gameBoard.refreshEnemyPosition(enemy);
-	gameBoard.refreshPlayerPosition(player);
 	gameBoard.generateBoard();
+	gameBoard.refreshEnemyPosition(enemy, player);
+	gameBoard.refreshPlayerPosition(player);
 	gameBoard.printBoard();
 	player.printStats();
 	std::cout << "Meow\n";
@@ -24,12 +24,12 @@ void Game::startGame() {
 	int relics = player.getRelics();
 	while (1) {
 		input = getInput(player);
-		enemy.changePosition();
 		system("cls");
 		//Console cleared
-		gameBoard.refreshEnemyPosition(enemy);
 		gameBoard.checkField(player);
 		gameBoard.refreshPlayerPosition(player);
+		enemy.changePosition(player);
+		gameBoard.refreshEnemyPosition(enemy, player);
 		gameBoard.printBoard();
 		player.printStats();
 		enemy.printEnemy();
@@ -42,8 +42,9 @@ void Game::startGame() {
 		else if (relics == relicAmount) {
 			gameBoard.generateBoard();
 			relicAmount = gameBoard.getRelicAmount();
-			gameBoard.refreshEnemyPosition(enemy);
+			gameBoard.refreshEnemyPosition(enemy, player);
 			gameBoard.refreshPlayerPosition(player);
+			gameBoard.increaseDifficulty();
 		}
 	}
 }

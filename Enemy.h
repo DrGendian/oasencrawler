@@ -1,4 +1,5 @@
 #pragma once
+#include "Player.h"
 class Enemy
 {
 public:
@@ -7,7 +8,7 @@ public:
 	int getX();
 	int getLastY();
 	int getLastX();
-	void changePosition();
+	void changePosition(Player& player);
 	void printEnemy();
 	void revertPosition();
 	char symbol = 'V';

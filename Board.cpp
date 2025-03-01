@@ -6,7 +6,7 @@
 #include <ctime>
 Board::Board() : relicAmount(0){
         // Initialize gameBoard with default values
-        
+    difficulty = 0;
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 gameBoard[i][j].symbol = '*';
@@ -51,25 +51,30 @@ void Board::refreshPlayerPosition(Player& player) {
     this->gameBoard[y][x].symbol = '@';
 }
 //changes enemy position every turn
-void Board::refreshEnemyPosition(Enemy& enemy) {
+void Board::refreshEnemyPosition(Enemy& enemy, Player& player) {
     int lastX = enemy.getLastX();
     int lastY = enemy.getLastY();
-    this->gameBoard[lastY][lastX].symbol = '*';
+    gameBoard[lastY][lastX].symbol = '*';
     //FOR LATER USE IN HIGHER DIFFICULTY
     //gameBoard[lastY][lastX].symbol = '!';
-    //gameBoard[lastY][lastX].type = Field::TRAP;
-
+    if (gameBoard[lastY][lastX].type != Field::RELIC) {
+        gameBoard[lastY][lastX].type = Field::EMPTY;
+    }
+    int playerX = player.getX();
+    int playerY = player.getY();
     int x = enemy.getX();
     int y = enemy.getY();
 
-    if (gameBoard[y][x].symbol != Field::RELIC) {
+    if (gameBoard[y][x].symbol == '@' || x == playerX && y == playerY) {
+        enemy.revertPosition();
+    }
+    else if (gameBoard[y][x].type != Field::RELIC){
         this->gameBoard[y][x].symbol = 'V';
         gameBoard[y][x].type = Field::ENEMY;
     }
     else {
-        enemy.revertPosition();
+        this->gameBoard[y][x].symbol = 'V';
     }
-    
 }
 
 void Board::printBoard() {
@@ -86,10 +91,10 @@ void Board::checkField(Player& player) {
     int y = player.getY();
     srand(static_cast<unsigned int>(time(NULL)));
     int monsterChance;
-    if (gameBoard[y][x].type == Field::ENEMY) {
-        std::cout << "Enemy\n";
+    if (gameBoard[y][x].type == Field::ENEMY || gameBoard[y][x].symbol == 'V') {
         player.revertPosition();
-        player.changeHealth(-1);
+        std::cout << "Enemy\n";
+        player.changeHealth(-difficulty);
      }else if (gameBoard[y][x].type == Field::RELIC) {
         std::cout << "You found a relic!\n";
         player.addRelic();
@@ -115,4 +120,9 @@ void Board::checkField(Player& player) {
 }
 int Board::getRelicAmount() {
 	return relicAmount;
+}
+
+void Board::increaseDifficulty() {
+    difficulty++;
+    std::cout << "Difficulty: \n" << difficulty;
 }

@@ -12,10 +12,12 @@ class Board
 		void checkField(Player& player);
 		int getRelicAmount();
 		void generateBoard();
-		void refreshEnemyPosition(Enemy& enemy);
+		void refreshEnemyPosition(Enemy& enemy, Player& player);
+		void increaseDifficulty();
 
 	private:
 		Field gameBoard[5][5];
 		int relicAmount;
+		int difficulty;
 };
 
