@@ -8,7 +8,7 @@ public:
 	int getX();
 	int getLastY();
 	int getLastX();
-	void changePosition(Player& player);
+	void changePosition();
 	void printEnemy();
 	void revertPosition();
 	char symbol = 'V';

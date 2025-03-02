@@ -4,8 +4,9 @@
 #include <ctime>
 #include <iostream>
 Enemy::Enemy() {
-	y = 3;
-	x = 3;
+	srand(time(NULL));
+	y = rand() % 5;
+	x = rand() % 5;
 	lastY = y;
 	lastX = x;
 }
@@ -24,70 +25,30 @@ int Enemy::getLastY() {
 int Enemy::getLastX() {
 	return lastX;
 }
-void Enemy::changePosition(Player& player) {
+
+
+void Enemy::changePosition() {
 	lastX = x;
 	lastY = y;
-	/*srand(time(NULL));
 	int chance = rand() % 4;
-	switch(chance) {
-	case 0:
-		if (x != 4) {
-			x++;
-		}
-		break;
-	case 1:
-		if (x != 0) {
-			x--;
-		}
-		break;
-	case 2:
-		if (y != 4) {
-			y++;
-		}
-		break;
-	case 3:
-		if (x != 0) {
-			y--;
-		}
-		break;
-	}*/
-	
-
-	
-	int playerX = player.getX();
-	int playerY = player.getY();
-
-	int differenceX = playerX - x;
-	int differenceY = playerY - y;
-
-	if (x != playerX) {
-		x += (playerX > x) ? 1 : -1;
-	}
-	else if (y != playerY) {
-		y += (playerY > y) ? 1 : -1;
+	switch (chance) {
+	case 0: x--; break;
+	case 1: x++; break;
+	case 2: y++; break;
+	case 3: y--; break;
 	}
 
-
-	if (x > 4) {
-		x = 4;
-	}
-	else if (x < 0) {
-		x = 0;
-	}
-	if (y > 4) {
-		y = 4;
-	}
-	else if (y < 0) {
-		y = 0;
-	}
-
+	if (x < 0) x = 0;
+	if (x > 4) x = 4;
+	if (y < 0) y = 0;
+	if (y > 4) y = 4;
 }
 
 void Enemy::revertPosition() {
-		x = 4;
-		y = 4;
+		x = lastX;
+		y = lastY;
 }
 
 void Enemy::printEnemy() {
-	std::cout << "Enemy Position:" << "(" << x << "|" << y << ")\n";
+	std::cout << "Enemy Position:" << "(" << y << "|" << x << ")\n";
 }

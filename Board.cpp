@@ -44,7 +44,12 @@ void Board::generateBoard() {
 void Board::refreshPlayerPosition(Player& player) {
     int lastX = player.getLastX();
     int lastY = player.getLastY();
-    this->gameBoard[lastY][lastX].symbol = '*';
+    if (gameBoard[lastY][lastX].symbol == 'V') {
+        gameBoard[lastY][lastX].symbol = 'V';
+    }
+    else {
+       gameBoard[lastY][lastX].symbol = '*';
+    }
 
     int x = player.getX();
     int y = player.getY();
@@ -54,27 +59,35 @@ void Board::refreshPlayerPosition(Player& player) {
 void Board::refreshEnemyPosition(Enemy& enemy, Player& player) {
     int lastX = enemy.getLastX();
     int lastY = enemy.getLastY();
-    gameBoard[lastY][lastX].symbol = '*';
-    //FOR LATER USE IN HIGHER DIFFICULTY
-    //gameBoard[lastY][lastX].symbol = '!';
+    this->gameBoard[lastY][lastX].symbol = '*';
     if (gameBoard[lastY][lastX].type != Field::RELIC) {
         gameBoard[lastY][lastX].type = Field::EMPTY;
     }
-    int playerX = player.getX();
-    int playerY = player.getY();
+    if (gameBoard[lastY][lastX].symbol == '@') {
+        gameBoard[lastY][lastX].symbol = '@';
+    }
+
     int x = enemy.getX();
     int y = enemy.getY();
+    int playerX = player.getX();
+    int playerY = player.getY();
 
-    if (gameBoard[y][x].symbol == '@' || x == playerX && y == playerY) {
+    if ((gameBoard[y][x].symbol == '@') || (x == playerX && y == playerY)) {
+        gameBoard[y][x].symbol = '@';
         enemy.revertPosition();
     }
-    else if (gameBoard[y][x].type != Field::RELIC){
-        this->gameBoard[y][x].symbol = 'V';
-        gameBoard[y][x].type = Field::ENEMY;
+
+    if (gameBoard[y][x].type == Field::ENEMY) {
+        enemy.revertPosition();
     }
     else {
-        this->gameBoard[y][x].symbol = 'V';
+        gameBoard[y][x].symbol = 'V';
+        if (gameBoard[y][x].type != Field::RELIC) {
+            gameBoard[y][x].type = Field::ENEMY;
+        }
     }
+
+
 }
 
 void Board::printBoard() {
@@ -95,12 +108,13 @@ void Board::checkField(Player& player) {
         player.revertPosition();
         std::cout << "Enemy\n";
         player.changeHealth(-difficulty);
+        gameBoard[y][x].type = Field::EMPTY;
      }else if (gameBoard[y][x].type == Field::RELIC) {
         std::cout << "You found a relic!\n";
         player.addRelic();
         gameBoard[y][x].type = Field::EMPTY;
 	}else if (gameBoard[y][x].type == Field::TRAP) {
-		monsterChance = rand() % 6 +1;
+		monsterChance = rand() % 6;
 		if (monsterChance == 4) {
 			std::cout << "You found a monster!\n";
 			player.changeHealth(-1);

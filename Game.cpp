@@ -1,19 +1,24 @@
 #include <iostream>
+#include <vector>
 #include "Game.h"
 #include "Board.h"
 #include "Player.h"
 #include "Enemy.h"
 Game::Game() {
 	input = ' ';
+	std::vector<Enemy> enemyCount;
 }
 
 void Game::startGame() {
 	Player player = Player();
-	Enemy enemy = Enemy();
+	enemyCount.push_back(Enemy());
+	enemyCount.push_back(Enemy());
 	Board gameBoard = Board();
 	//gameBoard.setRelics();
 	gameBoard.generateBoard();
-	gameBoard.refreshEnemyPosition(enemy, player);
+	for (Enemy& enemy : enemyCount) {
+		gameBoard.refreshEnemyPosition(enemy, player);
+	}
 	gameBoard.refreshPlayerPosition(player);
 	gameBoard.printBoard();
 	player.printStats();
@@ -28,11 +33,15 @@ void Game::startGame() {
 		//Console cleared
 		gameBoard.checkField(player);
 		gameBoard.refreshPlayerPosition(player);
-		enemy.changePosition(player);
-		gameBoard.refreshEnemyPosition(enemy, player);
+		for (Enemy& enemy : enemyCount) {
+			enemy.changePosition();
+			gameBoard.refreshEnemyPosition(enemy, player);
+		}
 		gameBoard.printBoard();
 		player.printStats();
-		enemy.printEnemy();
+		for (Enemy& enemy : enemyCount) {
+			enemy.printEnemy();
+		}
 		health = player.getHealth();
 		relics = player.getRelics();
 		std::cout << "Relic Amount: " << relicAmount << std::endl;
@@ -40,9 +49,12 @@ void Game::startGame() {
 			break;
 		}
 		else if (relics == relicAmount) {
+			enemyCount.push_back(Enemy());
 			gameBoard.generateBoard();
 			relicAmount = gameBoard.getRelicAmount();
-			gameBoard.refreshEnemyPosition(enemy, player);
+			for (Enemy& enemy : enemyCount) {
+				gameBoard.refreshEnemyPosition(enemy, player);
+			}
 			gameBoard.refreshPlayerPosition(player);
 			gameBoard.increaseDifficulty();
 		}

@@ -1,5 +1,8 @@
 #pragma once
+#include <iostream>
+#include <vector>
 #include "Player.h"
+#include "Enemy.h"
 
 class Game
 {
@@ -10,5 +13,6 @@ class Game
 
 	private:
 		char input;
+		std::vector<Enemy> enemyCount;
 };
 
