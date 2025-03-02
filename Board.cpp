@@ -25,15 +25,14 @@ void Board::generateBoard() {
             }
             else if (x >= 41 && x <= 80) {
                 gameBoard[i][j].type = Field::TRAP;
-                gameBoard[i][j].symbol = '!';
             }
             else if (x >= 81 && x <= 90) {
                 gameBoard[i][j].type = Field::WELL;
             }
             else if (x >= 91 && x <= 100) {
                 if (gameBoard[i][j].type != Field::ENEMY) {
-                    gameBoard[i][j].symbol = '#';
                     gameBoard[i][j].type = Field::RELIC;
+                    gameBoard[i][j].symbol = '#';
                     relicAmount++;
                 }
             }
@@ -44,10 +43,7 @@ void Board::generateBoard() {
 void Board::refreshPlayerPosition(Player& player) {
     int lastX = player.getLastX();
     int lastY = player.getLastY();
-    if (gameBoard[lastY][lastX].symbol == 'V') {
-        gameBoard[lastY][lastX].symbol = 'V';
-    }
-    else {
+    if (gameBoard[lastY][lastX].symbol != 'V') {
        gameBoard[lastY][lastX].symbol = '*';
     }
 
@@ -56,38 +52,26 @@ void Board::refreshPlayerPosition(Player& player) {
     this->gameBoard[y][x].symbol = '@';
 }
 //changes enemy position every turn
-void Board::refreshEnemyPosition(Enemy& enemy, Player& player) {
+void Board::refreshEnemyPosition(Enemy& enemy) {
     int lastX = enemy.getLastX();
     int lastY = enemy.getLastY();
-    this->gameBoard[lastY][lastX].symbol = '*';
     if (gameBoard[lastY][lastX].type != Field::RELIC) {
         gameBoard[lastY][lastX].type = Field::EMPTY;
     }
-    if (gameBoard[lastY][lastX].symbol == '@') {
-        gameBoard[lastY][lastX].symbol = '@';
+    if (gameBoard[lastY][lastX].type != Field::ENEMY) {
+        this->gameBoard[lastY][lastX].symbol = '*';
     }
-
     int x = enemy.getX();
     int y = enemy.getY();
-    int playerX = player.getX();
-    int playerY = player.getY();
-
-    if ((gameBoard[y][x].symbol == '@') || (x == playerX && y == playerY)) {
-        gameBoard[y][x].symbol = '@';
-        enemy.revertPosition();
-    }
-
-    if (gameBoard[y][x].type == Field::ENEMY) {
+    if (gameBoard[y][x].symbol == '@') {
         enemy.revertPosition();
     }
     else {
         gameBoard[y][x].symbol = 'V';
-        if (gameBoard[y][x].type != Field::RELIC) {
+        if (gameBoard[y][x].type != Field::RELIC && gameBoard[y][x].type != Field::TRAP) {
             gameBoard[y][x].type = Field::ENEMY;
         }
     }
-
-
 }
 
 void Board::printBoard() {
@@ -104,11 +88,11 @@ void Board::checkField(Player& player) {
     int y = player.getY();
     srand(static_cast<unsigned int>(time(NULL)));
     int monsterChance;
-    if (gameBoard[y][x].type == Field::ENEMY || gameBoard[y][x].symbol == 'V') {
+    if (gameBoard[y][x].symbol == 'V' || gameBoard[y][x].type == Field::ENEMY) {
+        player.changeHealth(-difficulty);
+        gameBoard[y][x].symbol= 'V';
         player.revertPosition();
         std::cout << "Enemy\n";
-        player.changeHealth(-difficulty);
-        gameBoard[y][x].type = Field::EMPTY;
      }else if (gameBoard[y][x].type == Field::RELIC) {
         std::cout << "You found a relic!\n";
         player.addRelic();

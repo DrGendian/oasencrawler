@@ -50,5 +50,5 @@ void Enemy::revertPosition() {
 }
 
 void Enemy::printEnemy() {
-	std::cout << "Enemy Position:" << "(" << y << "|" << x << ")\n";
+	std::cout << "Enemy Position:" << "(" << x << "|" << y << ")\n";
 }

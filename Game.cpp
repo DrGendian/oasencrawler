@@ -12,12 +12,11 @@ Game::Game() {
 void Game::startGame() {
 	Player player = Player();
 	enemyCount.push_back(Enemy());
-	enemyCount.push_back(Enemy());
 	Board gameBoard = Board();
 	//gameBoard.setRelics();
 	gameBoard.generateBoard();
 	for (Enemy& enemy : enemyCount) {
-		gameBoard.refreshEnemyPosition(enemy, player);
+		gameBoard.refreshEnemyPosition(enemy);
 	}
 	gameBoard.refreshPlayerPosition(player);
 	gameBoard.printBoard();
@@ -35,7 +34,7 @@ void Game::startGame() {
 		gameBoard.refreshPlayerPosition(player);
 		for (Enemy& enemy : enemyCount) {
 			enemy.changePosition();
-			gameBoard.refreshEnemyPosition(enemy, player);
+			gameBoard.refreshEnemyPosition(enemy);
 		}
 		gameBoard.printBoard();
 		player.printStats();
@@ -52,11 +51,11 @@ void Game::startGame() {
 			enemyCount.push_back(Enemy());
 			gameBoard.generateBoard();
 			relicAmount = gameBoard.getRelicAmount();
-			for (Enemy& enemy : enemyCount) {
-				gameBoard.refreshEnemyPosition(enemy, player);
-			}
 			gameBoard.refreshPlayerPosition(player);
 			gameBoard.increaseDifficulty();
+			for (Enemy& enemy : enemyCount) {
+				gameBoard.refreshEnemyPosition(enemy);
+			}
 		}
 	}
 }
